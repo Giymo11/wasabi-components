@@ -1,0 +1,124 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<link rel="import" href="../wasabi-fonts-one/wasabi-fonts-one.html">
+<link rel="import" href="../wasabi-fonts-two/wasabi-fonts-two.html">
+
+<link rel="stylesheet" type="text/css" href="../../fonts/iosevka/iosevka.css">
+<link rel="stylesheet" type="text/css" href="../../fonts/fira-code/fira-code.css">
+<link rel="stylesheet" type="text/css" href="../../fonts/monoid/monoid.css">
+<link rel="stylesheet" type="text/css" href="../../fonts/hasklig/hasklig.css">
+<link rel="stylesheet" type="text/css" href="../../fonts/fixedsys-excelsior/fixedsys-excelsior.css">
+<link rel="stylesheet" type="text/css" href="../../fonts/dejavu-sans-code/dejavu-sans-code.css">
+
+<link rel="stylesheet" type="text/css" href="../../darcula.css">
+
+<dom-module id="wasabi-fonts-showcase">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      :host {
+        --wasabi-fonts-fg: var(--darcula-fg);
+        --wasabi-fonts-bg: var(--darcula-bg);
+        --wasabi-fonts-field: var(--darcula-field);
+        --wasabi-fonts-annotation: var(--darcula-annotation);
+        --wasabi-fonts-keyword: var(--darcula-keyword);
+        --wasabi-fonts-method: var(--darcula-method);
+        --wasabi-fonts-operator: #f92672; /* from prism.js "Okaidia", a bit like sublime */
+        --wasabi-fonts-string: var(--darcula-string);
+        --wasabi-fonts-parameter: var(--darcula-parameter);
+        --wasabi-fonts-constant: var(--darcula-constant);
+        --wasabi-fonts-number: var(--darcula-number);
+      }
+
+      :host {
+        background: var(--darcula-bg);
+        display: grid;
+        grid-template-columns: 1fr 1fr [content-start] 1024px [content-end] 1fr 1fr;
+      }
+
+      .a-row {
+        grid-column: content-start / content-end;
+        font-size: 16px;
+      }
+
+      wasabi-fonts-one {
+        margin-top: 6.25rem;
+        margin-bottom: 2rem;
+      }
+
+      wasabi-fonts-two {
+        margin-top: 2rem;
+        margin-bottom: 6.25rem;
+      }
+    </style>
+
+    <template is="dom-repeat" items="{{fontclasses}}">
+      <div class="a-row" style="--wasabi-fonts-family: [[item.family]]">
+        <wasabi-fonts-one>
+          <span>[[item.name]]</span>
+          <span slot="description">[[item.description]]</span>
+        </wasabi-fonts-one>
+        <wasabi-fonts-two></wasabi-fonts-two>
+      </div>
+    </template>
+
+
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class WasabiFontsShowcase extends Polymer.Element {
+      static get is() {
+        return 'wasabi-fonts-showcase';
+      }
+
+      static get properties() {
+        return {
+          fontclasses: {
+            type: Array,
+            value: [
+              {
+                name: 'Iosevka Custom',
+                family: 'Iosevka',
+                description: 'Iosevka is a slender monospace sans-serif typeface inspired by Pragmata Pro, M+ and PF DIN Mono.'
+              },
+              {
+                name: 'Fira Code',
+                family: 'Fira Code',
+                description: 'Fira Code is an extension of the Fira Mono font containing a set of ligatures for programming character combinations.'
+              },
+              {
+                name: 'Monoid with serifed \'l\'',
+                family: 'Monoid',
+                description: 'Monoid is a semi-condensed, big aperture font designed for programming. This version is customized with a serifed \'l\'.'
+              },
+              {
+                name: 'Hasklig',
+                family: 'Hasklig',
+                description: 'Hasklig is a fork of the Source Code Pro repository, adding ligatures to make especially Haskell code more readable.'
+              },
+              {
+                name: 'Fixedsys Excelsior',
+                family: 'Fixedsys Excelsior',
+                description: 'Fixedsys Excelsior is a 8x16 font with programming ligatures, inspired by DOS and intended for the terminal.'
+              },
+              {
+                name: 'DejaVu Sans Code',
+                family: 'DejaVu Sans Code',
+                description: 'DejaVu Sans Code a is monospaced font with programming ligatures based on DejaVu Sans Mono.'
+              }
+            ]
+          }
+        };
+      }
+    }
+
+    window.customElements.define(WasabiFontsShowcase.is, WasabiFontsShowcase);
+  </script>
+</dom-module>

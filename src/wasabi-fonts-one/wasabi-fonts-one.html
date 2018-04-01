@@ -1,0 +1,37 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+
+<link rel="import" href="wasabi-fonts-one-styles.html">
+
+<dom-module id="wasabi-fonts-one">
+
+  <template>
+
+    <style include="wasabi-fonts-one-styles"></style>
+
+
+    <div class="header">
+      <h2>
+        <slot></slot>
+      </h2>
+      <p>
+        <slot name="description"></slot>
+      </p>
+    </div>
+
+    <template is="dom-repeat" items="{{fontweights}}">
+      <div class="a-row" style="font-weight: [[item.weight]]">
+        <div class="weight-name">[[item.name]]</div>
+        <div>
+          <span class="annotation">@real</span> <span class="operator">^</span><span class="field">fox</span>.<span
+            class="method">quick</span>(<span class="parameter">h</span>){ <span class="operator">*</span>is_brown <span
+            class="operator">&&</span> it_jumps_over(<span class="constant">doges.lazy</span>) } <span class="string">"$"</span>
+          <span class="number">0123456789</span>#
+        </div>
+      </div>
+    </template>
+
+  </template>
+
+  <script src="wasabi-fonts-one.js"></script>
+</dom-module>

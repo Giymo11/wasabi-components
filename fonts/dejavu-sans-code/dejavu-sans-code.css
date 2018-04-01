@@ -1,0 +1,21 @@
+@font-face {
+	font-family: 'DejaVu Sans Code';
+	src: url('DejaVuSansCode.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'DejaVu Sans Code';
+    font-weight: 700;
+	src: url('DejaVuSansCode-Bold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'DejaVu Sans Code';
+    font-style: oblique;
+	src: url('DejaVuSansCode-Oblique.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'DejaVu Sans Code';
+    font-weight: 700;
+    font-style: oblique;
+	src: url('DejaVuSansCode-BoldOblique.woff2') format('woff2');
+}

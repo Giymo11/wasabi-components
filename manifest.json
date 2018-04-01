@@ -1,0 +1,7 @@
+{
+  "name": "wasabi-components",
+  "short_name": "wasabi-components",
+  "description": "Some components built by wasabi.science",
+  "start_url": "/",
+  "display": "standalone"
+}

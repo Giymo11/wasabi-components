@@ -1,0 +1,74 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+
+<link rel="import" href="wasabi-fonts-two-styles.html">
+
+<dom-module id="wasabi-fonts-two">
+
+  <template>
+
+    <style include="wasabi-fonts-one-styles"></style>
+    <style include="wasabi-fonts-two-styles"></style>
+
+
+    <div class="header">
+      <h2>
+        Ligatures
+      </h2>
+      <p>
+        Ligatures bind two or more characters together.
+        This is a showcase of interesting character combinations sometimes used in programming.
+      </p>
+    </div>
+
+    <div class="a-row">
+<pre class="lefty">
+&lt;----------- &lt;==========&gt; -----------&gt;
+
+.= ..= .- := ::= =:= __
+== != === !== =/= =!=
+
+<-< <<- <-- <- <-> -> --> ->> >->
+<=< <<= <== <= <=> => ==> =>> >=>
+>>= >>- >- <~> -< -<< =<<
+-<- =<= <~~ <~ ~~ ~> ~~> =>= ->-
+
+\  \\  /* */  /// //
+&lt;/ &lt;!--  &lt;/&gt;  --&gt; /&gt;
+0xF 9:45 m-x www
+*ptr &ref a.b x->y
+
+~= ~- -~ ~@
+^= ?= /= /==
+-| _|_ |- |= ||=
+#! #= ## ### ####
+#{ #[ ]# #( #? #_ #_(
+</pre>
+      <pre class="righty">
+<******>
+<<< << <= <> >= >> >>>
+(\ (: (. (* comm *) .) :) /)
+{. {| [| <   ✓  :> |] |} .}
+<||| <|| <| <|> |> ||> |||>
+
+<$ <$> $>
+<+ <+> +>
+<. <.> .>
+<* <*> *>
+
+;; :: ::: !! ?? %% &&
+|| .. ... ..< .? ?. ?:
+-- --- ++ +++ ** ***
++: -: =: a\/b a/\b := :- :+
+
+a*b a*A B*b A*B *a *A a* A*
+a-b a-A B-b A-B -a -A a- A-
+a+b a+A B+b A+B +a +A a+ A+
+a:b a:A B:b A:B :a :A a: A:
+</pre>
+    </div>
+
+  </template>
+
+  <script src="wasabi-fonts-two.js"></script>
+</dom-module>

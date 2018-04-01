@@ -1,0 +1,84 @@
+<dom-module id="wasabi-fonts-one-styles">
+  <template>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+        font-family: var(--wasabi-fonts-family, monospace);
+        font-feature-settings: 'calt' 1;
+        background: var(--wasabi-fonts-bg, #FFF);
+        color: var(--wasabi-fonts-fg, #000);
+      }
+
+      .header {
+        margin-left: 9.4rem;
+        margin-bottom: 0.75rem;
+        margin-top: 0.75rem;
+      }
+
+      .header h2 {
+        margin: 0;
+        margin-bottom: 0.25rem;
+      }
+
+      .header p {
+        margin: 0;
+        padding-left: 0.08rem;
+        font-weight: 300;
+      }
+
+      .a-row {
+        display: grid;
+        grid-template-columns: 8em 1fr;
+        grid-gap: 1.5em;
+      }
+
+      .a-row pre {
+        margin: 0;
+        font-family: var(--wasabi-fonts-family, monospace);
+        grid-column: 2;
+      }
+
+      .a-row .weight-name {
+        text-align: right;
+        grid-column: 1;
+      }
+
+      .field {
+        color: var(--wasabi-fonts-field, #000);
+      }
+
+      .annotation {
+        color: var(--wasabi-fonts-annotation, #000);
+      }
+
+      .keyword {
+        color: var(--wasabi-fonts-keyword, #000);
+      }
+
+      .method {
+        color: var(--wasabi-fonts-method, #000);
+      }
+
+      .operator {
+        color: var(--wasabi-fonts-operator, #000);
+      }
+
+      .string {
+        color: var(--wasabi-fonts-string, #000);
+      }
+
+      .parameter {
+        color: var(--wasabi-fonts-parameter, #000);
+      }
+
+      .constant {
+        color: var(--wasabi-fonts-constant, #000);
+      }
+
+      .number {
+        color: var(--wasabi-fonts-number, #000);
+      }
+    </style>
+  </template>
+</dom-module>

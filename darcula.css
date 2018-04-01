@@ -1,0 +1,13 @@
+html {
+  --darcula-bg: #2B2B2B;
+  --darcula-fg: #D8D8D8;
+  --darcula-field: #BED6FF;
+  --darcula-annotation: #BBB529;
+  --darcula-keyword: #CC7832;
+  --darcula-method: #A9B7C6;
+  --darcula-operator: #D8D8D8;
+  --darcula-string: #A5C25C;
+  --darcula-parameter: #79ABFF;
+  --darcula-constant: #9876AA;
+  --darcula-number: #6897BB;
+}
