@@ -8,7 +8,7 @@ Some components built by wasabi.science
 `wasabi-fonts-two` displays the character combinations to show available ligatures. 
 `wasabi-fonts-showcase` combines them.
 
-![wasabi-fonts-showcase](screenshots/2018-04-01T16:01:26.363Z_iPad landscape_localhost:8000.png)
+![wasabi-fonts-showcase](/screenshots/2018-04-01T16:01:26.363Z_iPad landscape_localhost:8000.png&raw=true)
 
 ###  Origin of the fonts:
 
