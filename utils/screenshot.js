@@ -73,14 +73,14 @@ const sites = process.argv.slice(2);
 
             try {
                 // networkidle0 waits until 0 network requests are open for a continuous 500ms
-                await page.goto(url, {timeout: 30000, waitUntil: "networkidle0"});
+                await page.goto(url, {timeout: 5000, waitUntil: "networkidle0"});
                 await screenshot();
             } catch (err) {
                 try {
                     await recover(err);
                     // networkidle2 waits until at most 2 network requests are open for a continuous 500ms
                     // useful for those websites that keep one or two open at all time, like infinite scrollers
-                    await page.goto(url, {timeout: 30000, waitUntil: "networkidle2"});
+                    await page.goto(url, {timeout: 5000, waitUntil: "networkidle2"});
                     await screenshot();
                 } catch (err2) {
                     // if none of this works, simply fail this request
