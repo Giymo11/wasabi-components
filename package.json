@@ -1,0 +1,7 @@
+{
+  "name": "wasabi-components",
+  "version": "0.0.1",
+  "dependencies": {
+    "three": "^0.91.0"
+  }
+}
