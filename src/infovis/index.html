@@ -7,246 +7,118 @@
     body {
       overflow: scroll;
     }
-
     svg {
       display: inline-block;
-    }
-
-    .yaxis path {
-      stroke: #333;
-    }
-
-    .yseparator path {
-      stroke: #ccc;
-    }
-
-    .yearmarker {
-      fill: #ccc;
-    }
-
-    .yearlabel {
-      fill: #333;
     }
   </style>
 </head>
 <body>
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script>
-  'use strict';
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script>
+    'use strict';
 
-  const parseDate = d3.timeParse("%Y-%m-%d");
-
-  const lineBreaksEnabled = false;
+    const parseDate = d3.timeParse("%Y-%m-%d");
 
 
-  const paddingHor = 32;
-  const paddingVert = 32;
+    const paddingHor = 64;
+    const paddingVert = 32;
 
-  let width = 6400;
-  const colWidth = 180;
-  const height = 3200;
+    const width = 320;
+    const height = 3200;
 
-  const movieTitleMarkerOffset = 24;
-  const movieTitleOffset = 16;
-  const movieTitleSize = 12;
-  const movieTitleLineHeight = movieTitleSize * 1.2;
+    const movieTitleSize = 18;
+    const genreTitleSize = 32;
 
-  const genreTitleOffset = 16;
-  const genreTitleSize = 18;
+    const legendOffsetHor = 128;
+    const legendOffsetVert = 92;
 
-  const yearLabelSize = 11;
-  const yearLabelOffset = 4;
+    const markerWidth = 12;
+    const markerHeight = 2;
 
-  const legendOffsetHor = 64;
-  const legendOffsetVert = 32;
-
-  const markerWidth = 12;
-  const markerHeight = 2;
-
-  console.log("inb4 loading");
+    console.log("inb4 loading");
 
 
-  async function importData1() {
+    async function importData1() {
 
-    let data = await d3.csv('imdb1.csv');
+      let data = await d3.csv('imdb1.csv');
 
-    let myData = [];
+      let myData = [];
 
-    data.forEach(d => {
-      const genres = d.genres.split('__');
+      data.forEach(d => {
+        const genres = d.genres.split('__');
 
-      genres.forEach(genre => {
-
-        const date = parseDate(d.date);
-        if (date) {
+        genres.forEach(genre => {
           myData.push({
             title: d.title,
-            year: date.getFullYear(),
-            genre: genre,
-            masterpiece: Math.random() * 100 < 10.0
+            year: parseDate(d.date).year,
+            genre: genre
           });
-        }
-      });
-    });
-
-    return myData;
-  }
-
-  async function importData0() {
-
-    const genres = [
-      "Show Business", "Romance", "Comedy", "Drama", "Political Drama", "Western & Co", "World / Adventure", "Musical",
-      "Mystery / Crime", "Gangster", "Thriller / Horror / Monster", "Action", "Comics", "Drama about tolerance",
-      "Dark and weird drama", "Sci-Fi", "Fantasy", "War", "Animation"
-    ];
-    width = colWidth * (genres.length + 1);
-
-    let data = await d3.csv('genres2.csv');
-
-    let myData = [];
-
-    data.forEach(d => {
-
-      let again = true;
-
-      while (again) {
-        myData.push({
-          title: d.title,
-          year: d.year,
-          genre: genres[Math.round(Math.random() * genres.length)],
-          masterpiece: Math.random() * 100 < 10.0
         });
+      });
 
-        if (Math.random() * 100 < 98.0) {
-          again = false
-        }
-      }
-    });
-
-    return myData;
-  }
-
-
-  function buildGraphic(data) {
-    console.log(data);
-
-    // make scale data dependent
-    const extent = d3.extent(data, d => d.year);
-    console.log(extent);
-
-    // map the input domain to the output pixel range
-    const yFromYear = d3.scaleLinear()
-      .domain(extent)
-      .range([0 + paddingVert, height - paddingVert - legendOffsetVert]);
-
-
-    // make sure we have one tick per year
-    const yAxis = d3.axisLeft(yFromYear)
-      .ticks(Math.max(1, extent[1] - extent[0] - 1))
-      .tickFormat(d3.format(""));
-
-    const ySeparator = d3.axisLeft(yFromYear).ticks(0).tickFormat('');
-
-
-    const dataByGenreByYear = d3.nest()
-      .key(d => d.genre)
-      .key(d => d.year)
-      .entries(data);
-
-    console.log(dataByGenreByYear);
-
-
-    const svg = d3.select('body')
-      .append('svg')        // create an <svg> element
-      .attr('width', width) // set its dimentions
-      .attr('height', height);
-
-    svg.append('g')
-      .attr('class', 'yaxis')
-      .attr("transform", "translate(" + legendOffsetHor + ", " + legendOffsetVert + ")")
-      .call(yAxis);
-
-
-    const enterByGenre = svg.selectAll('genre')
-      .data(dataByGenreByYear.map((entry, idx) => {
-        entry.column = idx;
-        return entry;
-      }))
-      .enter();
-
-
-    enterByGenre.append('text')
-      .attr('class', 'genrelabel')
-      .attr('x', entry => entry.column * colWidth + paddingHor + genreTitleOffset)
-      .attr('y', paddingVert)
-      .attr('font-size', '' + genreTitleSize + 'px')
-      .text(entry => entry.key);
-
-    enterByGenre.append('g')            // create a <g> element
-      .attr('class', 'yseparator') // specify classes
-      .attr("transform", entry => "translate(" + (entry.column * colWidth + legendOffsetHor) + ", " + legendOffsetVert + ")")
-      .call(ySeparator);
-
-
-    const enterByYear = enterByGenre.selectAll('year')
-      .data(d => d.values.map(value => {
-        value.column = d.column;
-        return value;
-      }))
-      .enter();
-
-    enterByYear.append('rect')
-      .attr('class', 'yearmarker')
-      .attr('x', d => d.column * colWidth + legendOffsetHor - markerWidth / 2.0)
-      .attr('y', d => legendOffsetVert + yFromYear(d.values[0].year) - markerHeight / 2.0)
-      .attr('width', markerWidth)
-      .attr('height', markerHeight)
-
-    enterByYear.filter(d => d.column !== 0).append('text')
-      .attr('class', 'yearlabel')
-      .attr('x', d => d.column * colWidth + legendOffsetHor)
-      .attr('y', d => legendOffsetVert + yFromYear(d.values[0].year) - yearLabelOffset)
-      .attr('font-size', '' + yearLabelSize + 'px')
-      .attr('text-anchor', 'middle')
-      .text(d => d.values[0].year);
-
-
-    const enterByTitle = enterByYear.selectAll('title')
-      .data(d => d.values.map(value => {
-        value.column = d.column;
-        return value;
-      }))
-      .enter();
-
-    if (lineBreaksEnabled) {
-      enterByTitle.append('circle')
-        .attr('cx', d => d.column * colWidth + legendOffsetHor + movieTitleMarkerOffset)
-        .attr('cy', (d, idx) => legendOffsetVert + yFromYear(d.year) + movieTitleSize / 4 + idx * movieTitleLineHeight)
-        .attr('r', '' + movieTitleSize / 4 + 'px');
+      return myData;
     }
 
 
-    enterByTitle.append('text')
-      .attr('class', 'movielabel')
-      .attr('x', d => d.column * colWidth + legendOffsetHor + movieTitleOffset)
-      .attr('y', (d, idx) => legendOffsetVert + yFromYear(d.year) + movieTitleLineHeight / 2.0 + idx * movieTitleLineHeight)
-      .attr('font-size', '' + movieTitleSize + 'px')
-      .attr('fill', d => {
-        if (d.masterpiece) {
-          return '#c00';
-        } else {
-          return 'black';
-        }
-      })
-      .text(d => d.title);
-  }
+    function buildGraphic(data) {
+
+      console.log(data);
+
+      // make scale data dependent
+      const extent = d3.extent(data, d => d.date);
+
+      console.log(extent);
+      const x = d3.scaleBand().domain(extent).range([0 + paddingVert, height - paddingVert - legendOffsetVert]);
+
+      const xAxis = d3.axisLeft(x);
+
+      // TODO: group/nest by genre
+      // TODO: filter out movies that are occuring multiple times
+      // TODO: somehow connecting them
+
+      const svg = d3.select('body')
+        .append('svg')        // create an <svg> element
+        .attr('width', width) // set its dimentions
+        .attr('height', height);
+
+      const newRects = svg.selectAll('rect')
+        .data(data).enter();
 
 
-  const data = importData0();
-  data.then(data => buildGraphic(data));
+      // TODO: mark red if it is a masterpiece
+
+      newRects.append('rect')
+        .attr('y', d => legendOffsetVert + x(d.date) - (markerHeight / 2.0))
+        .attr('x', legendOffsetHor - (markerWidth / 2.0))
+        .attr('width', markerWidth)
+        .attr('height', markerHeight);
+/*
+      newRects.append('text')
+        .attr('x', (d, i) => legendOffset + x(d.date) - (markerWidth / 2.0))
+        // TODO: pre-sort for date, so i % 2 is actually useful
+        .attr('y', (d, i) => (paddingVert - (markerHeight / 2.0)) * 2 + (i % 2) * 2 * movieTitleSize)
+        .attr('font-size', '' + movieTitleSize + 'px')
+        .attr('text-anchor', 'middle')
+        .text(d => d.title);*/
+
+      svg.append('text')
+        .attr("transform", "translate(" + paddingHor + ", " + paddingVert + ")")
+        .attr('font-size', '' + genreTitleSize + 'px')
+        .attr('text-anchor', 'left')
+        .text('Genre Title');
+
+      svg.append('g')            // create a <g> element
+        .attr('class', 'x axis') // specify classes
+        .attr("transform", "translate(" + 0 + legendOffsetHor + ", " + paddingVert + ")")
+        .call(xAxis);
+    }
 
 
-</script>
+    const data = importData1();
+    buildGraphic(data);
+
+
+  </script>
 
 </body>
 
